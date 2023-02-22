@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: Arial;
+        padding: 20px;
+        background: #f1f1f1;
+      }
+
+      .header {
+        padding: 2px;
+        font-size: 40px;
+        text-align: center;
+        background: white;
+      }
+
+      .leftcolumn {
+        float: left;
+        width: 100%;
+      }
+
+      .card {
+        background-color: white;
+        padding: 20px;
+        margin-top: 20px;
+        transition: 0.7s;
+      }
+
+      .row:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
+
+      .card:hover{
+        background: gray;
+        color:#fff;
+        padding-left:50px;
+
+      }
+      a{
+        text-decoration:none;
+        color:#000;
+        display:block;
+      }
+
+      @media screen and (max-width: 800px) {
+        .leftcolumn,
+        .rightcolumn {
+          width: 100%;
+          padding: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h2>Karem's Blog</h2>
+    </div>
+    <br>
+    <form method="POST">
+      {% csrf_token %}
+      <label>Title</label>
+      <br>
+      <input type="text" name="title">
+      <br>
+      <label>Post</label>
+      <br>
+      <input type="text" name="post">
+      <input type="submit" value="Post">
+    </form>
+    <div class="row">
+      <div class="leftcolumn">
+        {% comment %} <div class="card"> {% endcomment %}
+          {% comment %} <a style="text-decoration: none; color: black" href=""> {% endcomment %}
+            {% comment %} <h2></h2>
+            <h5></h5>
+            <p></p> {% endcomment %}
+          {% comment %} </a> {% endcomment %}
+          
+          {% for i in post reversed %}
+          {% if i.activate == True %}
+            <div class="card">
+              <a href="/posts/{{i.id}}">
+                
+                  <h2>{{i.post_title}}</h2>
+                  <h5>{{i.post_time}}</h5>
+                  <p>{{i.post_value}}</p>
+                  <p>id = {{i.id}}</p>
+              </a>
+            </div>
+            {% endif %}
+            
+          {% endfor %}
+        {% comment %} </div> {% endcomment %}
+      </div>
+    </div>
+  </body>
+</html>
